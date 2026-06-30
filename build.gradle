@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'com.goit'
+version = '1.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.h2database:h2:2.2.224'
+
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+application {
+    // Default entry point — override on the command line with
+    //   gradle run -PmainClass=com.goit.jdbc.DatabaseInitService
+    mainClass = project.findProperty('mainClass') ?: 'com.goit.jdbc.Main'
+}
+
+test {
+    useJUnitPlatform()
+}

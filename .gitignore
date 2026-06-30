@@ -1,0 +1,22 @@
+# Build output
+.gradle/
+build/
+out/
+
+# H2 database files
+testdb.mv.db
+testdb.trace.db
+*.mv.db
+*.trace.db
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
