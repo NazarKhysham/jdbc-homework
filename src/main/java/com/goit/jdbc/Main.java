@@ -1,35 +1,26 @@
 package com.goit.jdbc;
 
-import java.util.List;
-
-/**
- * Demonstrates how to use {@link DatabaseQueryService} from regular Java code.
- *
- * <p>Before running this class make sure that the database has been initialized
- * and populated by running {@link DatabaseInitService} and
- * {@link DatabasePopulateService} in that order.
- */
 public class Main {
-
     public static void main(String[] args) {
-        DatabaseQueryService queryService = new DatabaseQueryService();
+        DatabaseInitService.main(args);
 
-        printSection("Max Project Count Clients", queryService.findMaxProjectsClient());
-        printSection("Longest Project(s)",        queryService.findLongestProject());
-        printSection("Max Salary Worker(s)",      queryService.findMaxSalaryWorker());
-        printSection("Youngest & Eldest Workers", queryService.findYoungestEldestWorkers());
-        printSection("Project Prices",            queryService.printProjectPrices());
-    }
+        ClientService clientService = new ClientService();
 
-    private static void printSection(String title, List<?> rows) {
-        System.out.println("=== " + title + " ===");
-        if (rows.isEmpty()) {
-            System.out.println("(no rows)");
-        } else {
-            for (Object row : rows) {
-                System.out.println(row);
-            }
+        long id = clientService.create("Test Client");
+        System.out.println("Created client id = " + id);
+
+        String name = clientService.getById(id);
+        System.out.println("Client name = " + name);
+
+        clientService.setName(id, "Updated Client");
+        System.out.println("Updated name = " + clientService.getById(id));
+
+        clientService.deleteById(id);
+        System.out.println("Client deleted");
+
+        System.out.println("All clients:");
+        for (Client client : clientService.listAll()) {
+            System.out.println(client.getId() + " - " + client.getName());
         }
-        System.out.println();
     }
 }
